@@ -8,28 +8,32 @@
 import SwiftUI
 
 struct LogInView: View {
+    @AppStorage("loggedIn") private var loggedIn = false
+
     @State var firstNameText: String = ""
     @State var passwordText: String = ""
 
     var body: some View {
-        VStack {
-            Text(Strings.welcomeBack)
-                .font(.montserratBold36)
-                .padding(.top, 93)
-                        
-            VStack(spacing: 35) {
-                TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName)
-                TextFieldInCapsuleView(text: $passwordText, placeHolder: Strings.password, isProtected: true)
-            }
-            .padding(.top, 80)
-            
-            LogInButtonView(title: Strings.logIn, action: {
+        GeometryReader { reader in
+            VStack {
+                Text(Strings.welcomeBack)
+                    .font(.montserratBold36)
+                    .padding(.top, reader.size.height / 8 - 30)
                 
-            })
-            .padding(.top, 99)
-            
-            Spacer()
-            
+                VStack(spacing: 35) {
+                    TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName)
+                    TextFieldInCapsuleView(text: $passwordText, placeHolder: Strings.password, isProtected: true)
+                }
+                .padding(.top, 80)
+                
+                CommonButton(title: Strings.logIn, action: {
+                    loggedIn = true
+                })
+                .padding(.top, 99)
+                
+                Spacer()
+                
+            }
         }
         .padding()
     }

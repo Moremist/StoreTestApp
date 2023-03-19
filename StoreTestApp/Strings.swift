@@ -21,4 +21,16 @@ struct Strings {
     //LoginView
     static let welcomeBack = "Welcome back"
     static let password = "Password"
+    
+    //ProfileView
+    static let profile = "Profile"
+    static let changePhoto = "Change photo"
+    static let uploadItem = "Upload item"
+    static let tradeStore = "Trade store"
+    static let paymentMethod = "Payment method"
+    static let balance = "Balance"
+    static let tradeHistory = "Trade history"
+    static let restorePurchases = "Restore purchases"
+    static let help = "Help"
+    static let logOut = "Log out"
 }

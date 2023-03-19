@@ -8,67 +8,77 @@
 import SwiftUI
 
 struct SignInView: View {
+    @AppStorage("loggedIn") private var loggedIn = false
+
+    var isPresented: Bool
     @State var firstNameText: String = ""
     @State var lastNameText: String = ""
     @State var emailText: String = ""
     
     var body: some View {
         NavigationView {
-            VStack {
-                Text(Strings.signIn)
-                    .font(.montserratBold36)
-                    .padding(.top, 128)
-                
-                Spacer()
-                
-                VStack(spacing: 35) {
-                    TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName)
-                    TextFieldInCapsuleView(text: $lastNameText, placeHolder: Strings.lastName)
-                    TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email)
-                }
-                
-                LogInButtonView(title: Strings.signIn, action: {
+            GeometryReader { reader in
+                VStack {
+                    Text(Strings.signIn)
+                        .font(.montserratBold36)
+                        .padding(.top, reader.size.height / 8)
                     
-                })
-                .padding(.top, 35)
-                
-                HStack {
-                    Text(Strings.alreadyHaveAnAccount)
-                        .font(.montserratRegular12)
-                        .foregroundColor(.gray)
+                    Spacer()
                     
-                    NavigationLink {
-                        LogInView()
-                    } label: {
-                        Text(Strings.logIn)
-                            .font(.montserratRegular12)
-                            .foregroundColor(.blue)
+                    VStack(spacing: 35) {
+                        TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName)
+                        TextFieldInCapsuleView(text: $lastNameText, placeHolder: Strings.lastName)
+                        TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email)
                     }
+                    .padding(.top, reader.size.height / 10)
+
+                    
+                    CommonButton(title: Strings.signIn, action: {
+                        loggedIn = true
+                    })
+                    .padding(.top, 35)
+                    
+                    HStack {
+                        Text(Strings.alreadyHaveAnAccount)
+                            .font(.montserratRegular12)
+                            .foregroundColor(.gray)
+                        
+                        NavigationLink {
+                            LogInView()
+                        } label: {
+                            Text(Strings.logIn)
+                                .font(.montserratRegular12)
+                                .foregroundColor(.blue)
+                        }
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .leading, spacing: 38) {
+                        SignInWithButtonView(iconImageName: "googleIcon", text: Strings.signInWithGoogle)
+                        SignInWithButtonView(iconImageName: "appleIcon", text: Strings.signInWithApple)
+                    }
+                    
                     Spacer()
                 }
-                .padding(.top, 8)
-                
-                Spacer()
-                
-                VStack(alignment: .leading, spacing: 38) {
-                    SignInWithButtonView(iconImageName: "googleIcon", text: Strings.signInWithGoogle)
-                    SignInWithButtonView(iconImageName: "appleIcon", text: Strings.signInWithApple)
-                }
-                
-                Spacer()
+                .padding()
             }
-            .padding()
         }
+        .opacity(isPresented ? 1 : 0)
     }
 }
 
 struct SignInWithButtonView: View {
+    @AppStorage("loggedIn") private var loggedIn = false
+
     var iconImageName: String
     var text: String
     
     var body: some View {
         Button {
-            
+            loggedIn = true
         } label: {
             HStack {
                 Image(iconImageName)
@@ -86,6 +96,6 @@ struct SignInWithButtonView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView()
+        SignInView(isPresented: true)
     }
 }
