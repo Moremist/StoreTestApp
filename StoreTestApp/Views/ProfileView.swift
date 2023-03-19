@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 enum ProfileActionStyle: Equatable {
     case navigate, none, logOut
@@ -28,28 +29,38 @@ struct ProfileView: View {
         ProfileAction(icon: Image("helpIcon"), text: Strings.help, style: .none),
         ProfileAction(icon: Image("logOutIcon"), text: Strings.logOut, style: .logOut)
     ]
+    
+    @State private var pickerShown: Bool = false
+    @State private var avatarItem: PhotosPickerItem?
+    @State private var avatarImage: Image?
+    
     var body: some View {
         VStack {
             Text(Strings.profile)
                 .font(.montserratBold16)
             
-            Image(systemName: "person.crop.circle.dashed")
-                .resizable()
-                .scaledToFill()
-                .clipShape(Circle())
-                .frame(width: 60, height: 60)
-                .padding(.top, 20)
+            if let avatarImage = avatarImage {
+                avatarImage
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 60, height: 60)
+                    .padding(.top, 20)
+            } else {
+                Image(systemName: "person.crop.circle.dashed")
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 60, height: 60)
+                    .padding(.top, 20)
+            }
             
-            Button(
-                action: {
-                    
-                },
-                label: {
-                    Text(Strings.changePhoto)
-                        .font(.montserratRegular12)
-                        .foregroundColor(.black)
-                }
-            )
+            PhotosPicker(selection: $avatarItem, matching: .images) {
+                Text(Strings.changePhoto)
+                    .font(.montserratRegular12)
+                    .foregroundColor(.black)
+            }
+            
             .padding(.top, 8)
             
             Text("Satria Adhi Pradana")
@@ -72,6 +83,16 @@ struct ProfileView: View {
             .padding(.top, 14)
             
             Spacer()
+        }
+        .onChange(of: avatarItem) { _ in
+            Task {
+                if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
+                    if let uiImage = UIImage(data: data) {
+                        avatarImage = Image(uiImage: uiImage)
+                        return
+                    }
+                }
+            }
         }
     }
 }
