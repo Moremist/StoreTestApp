@@ -14,12 +14,12 @@ struct MainScreenView: View {
         TabView {
             ProductsView()
                 .tabItem {
-                    Image(systemName: "house.fill")
+                    Label("Products", systemImage: "house.fill")
                 }
             
             ProfileView()
                 .tabItem {
-                    Image(systemName: "person")
+                    Label("Profile", systemImage: "person")
                 }
         }
         .overlay {

@@ -27,17 +27,25 @@ struct ProductsView: View {
             if viewModel.isProductsLoaded {
                 ScrollView(showsIndicators: false) {
                     VStack {
-                        LatestProductsView(
+                        ProductsScrollView(
                             products: viewModel.latestProductModels,
-                            addProduct: viewModel.addProductToCart(product:)
+                            title: Strings.latestDeals,
+                            addProduct: viewModel.addProductToCart(product:),
+                            cellSize: CGSize(width: 114, height: 149)
                         )
                         .padding(.horizontal, 12)
                         .padding(.top, 30)
                         
-                        FlashSaleProductsView(
+                        let screenSize = UIScreen.main.bounds.width
+                        let flashSaleCellWidth = screenSize / 2 - 22
+                        let flashSaleCellSize = CGSize(width: flashSaleCellWidth, height: flashSaleCellWidth * 1.2)
+                        
+                        ProductsScrollView(
                             products: viewModel.flashSaleProductModels,
+                            title: Strings.flashSale,
                             addProduct: viewModel.addProductToCart(product:),
-                            addToFavourite: viewModel.addProductToFavourite(product:)
+                            addToFavourite: viewModel.addProductToFavourite(product:),
+                            cellSize: flashSaleCellSize
                         )
                         .padding(.horizontal, 12)
                         .padding(.top, 30)
@@ -171,55 +179,17 @@ struct ProductCategoriesButtonsView: View {
     }
 }
 
-struct LatestProductsView: View {
+struct ProductsScrollView: View {
     var products: [ProductModel]
+    var title: String
     var addProduct: (ProductModel) -> Void
+    var addToFavourite: ((ProductModel) -> Void)?
+    var cellSize: CGSize
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(Strings.latestDeals)
-                    .font(.montserratRegular24)
-                
-                Spacer()
-                
-                Button {
-                    
-                } label: {
-                    Text(Strings.viewAll)
-                        .font(.montserratRegular16)
-                        .foregroundColor(.gray)
-                }
-                
-            }
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(products, id: \.name) { product in
-                        ProductCellView(
-                            product: product,
-                            addProductAction: {
-                                
-                            }
-                        )
-                        .frame(width: 114, height: 149)
-                    }
-                }
-            }
-        }
-    }
-}
-
-struct FlashSaleProductsView: View {
-    var products: [ProductModel]
-    var addProduct: (ProductModel) -> Void
-    var addToFavourite: (ProductModel) -> Void
-    
-    var body: some View {
-        let cellWidth = UIScreen.main.bounds.width / 2 - 22
             VStack(alignment: .leading) {
                 HStack {
-                    Text(Strings.flashSale)
+                    Text(title)
                         .font(.montserratRegular24)
                     
                     Spacer()
@@ -239,14 +209,10 @@ struct FlashSaleProductsView: View {
                         ForEach(products, id: \.name) { product in
                             ProductCellView(
                                 product: product,
-                                favouriteAction: {
-                                    addProduct(product)
-                                },
-                                addProductAction: {
-                                    addToFavourite(product)
-                                }
+                                addProductAction: addProduct,
+                                favouriteAction: addToFavourite
                             )
-                            .frame(width: cellWidth, height: cellWidth * 1.2)
+                            .frame(width: cellSize.width, height: cellSize.height)
                         }
                     }
                 }
