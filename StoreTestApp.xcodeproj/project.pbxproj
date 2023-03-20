@@ -104,6 +104,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F12DA6A29C9081800C9B435 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6F2AFA0029C7458A00F1C73D /* Fonts */,
+				6F2AFA2A29C74B8700F1C73D /* Strings.swift */,
+				6F12DA6829C907AD00C9B435 /* StrokeText.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		6F12DA6B29C9082700C9B435 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6FF11DF229C889C3004469B8 /* ProductModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6F2AF9CA29C73DE000F1C73D = {
 			isa = PBXGroup;
 			children = (
@@ -127,17 +145,15 @@
 		6F2AF9D529C73DE000F1C73D /* StoreTestApp */ = {
 			isa = PBXGroup;
 			children = (
+				6F12DA6B29C9082700C9B435 /* Models */,
+				6F12DA6A29C9081800C9B435 /* Helpers */,
 				6FF11DEF29C8887F004469B8 /* ViewModels */,
-				6F2AFA2529C7466300F1C73D /* Info.plist */,
 				6FEACF1D29C75AF300F5221C /* Preview Assets */,
 				6F2AFA3529C75A5000F1C73D /* Extensions */,
 				6F2AFA3429C75A4000F1C73D /* Application */,
 				6F2AFA3229C75A1D00F1C73D /* Views */,
-				6F2AFA0029C7458A00F1C73D /* Fonts */,
 				6F2AF9DA29C73DE100F1C73D /* Assets.xcassets */,
-				6F2AFA2A29C74B8700F1C73D /* Strings.swift */,
-				6FF11DF229C889C3004469B8 /* ProductModel.swift */,
-				6F12DA6829C907AD00C9B435 /* StrokeText.swift */,
+				6F2AFA2529C7466300F1C73D /* Info.plist */,
 			);
 			path = StoreTestApp;
 			sourceTree = "<group>";
