@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F12DA6929C907AD00C9B435 /* StrokeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F12DA6829C907AD00C9B435 /* StrokeText.swift */; };
 		6F2AF9D729C73DE000F1C73D /* StoreTestAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2AF9D629C73DE000F1C73D /* StoreTestAppApp.swift */; };
 		6F2AF9D929C73DE000F1C73D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2AF9D829C73DE000F1C73D /* SignInView.swift */; };
 		6F2AF9DB29C73DE100F1C73D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F2AF9DA29C73DE100F1C73D /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F12DA6829C907AD00C9B435 /* StrokeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeText.swift; sourceTree = "<group>"; };
 		6F2AF9D329C73DE000F1C73D /* StoreTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F2AF9D629C73DE000F1C73D /* StoreTestAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTestAppApp.swift; sourceTree = "<group>"; };
 		6F2AF9D829C73DE000F1C73D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				6F2AF9DA29C73DE100F1C73D /* Assets.xcassets */,
 				6F2AFA2A29C74B8700F1C73D /* Strings.swift */,
 				6FF11DF229C889C3004469B8 /* ProductModel.swift */,
+				6F12DA6829C907AD00C9B435 /* StrokeText.swift */,
 			);
 			path = StoreTestApp;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				6F2AFA2F29C74F3A00F1C73D /* TextFieldInCapsuleView.swift in Sources */,
 				6FF11DF329C889C3004469B8 /* ProductModel.swift in Sources */,
 				6FF11DF129C88895004469B8 /* ProductViewModel.swift in Sources */,
+				6F12DA6929C907AD00C9B435 /* StrokeText.swift in Sources */,
 				6F2AFA2729C746D200F1C73D /* Font+Extensions.swift in Sources */,
 				6FEACF2129C75D9600F5221C /* MainScreenView.swift in Sources */,
 				6F2AF9D929C73DE000F1C73D /* SignInView.swift in Sources */,
