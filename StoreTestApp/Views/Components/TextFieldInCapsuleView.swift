@@ -12,11 +12,13 @@ struct TextFieldInCapsuleView: View {
     @State var isTextHidden = true
     var placeHolder: String
     var isProtected: Bool = false
+    var isSearch: Bool = false
     
-    init(text: Binding<String>, placeHolder: String, isProtected: Bool = false) {
+    init(text: Binding<String>, placeHolder: String, isProtected: Bool = false, isSearch: Bool = false) {
         self._text = text
         self.placeHolder = placeHolder
         self.isProtected = isProtected
+        self.isSearch = isSearch
     }
     
     var body: some View {
@@ -62,11 +64,24 @@ struct TextFieldInCapsuleView: View {
                             .resizable()
                             .frame(width: 15, height: 15)
                     }
-
+                    
                 }
                 .padding(.trailing, 15)
             }
         }
+        .if(isSearch, transform: { view in
+            view
+                .overlay {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "magnifyingglass")
+                            .resizable()
+                            .frame(width: 12, height: 12)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.trailing, 18)
+                }
+        })
         .frame(height: 29)
     }
 }

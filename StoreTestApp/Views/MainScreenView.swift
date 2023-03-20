@@ -12,6 +12,11 @@ struct MainScreenView: View {
     
     var body: some View {
         TabView {
+            ProductsView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                }
+            
             ProfileView()
                 .tabItem {
                     Image(systemName: "person")

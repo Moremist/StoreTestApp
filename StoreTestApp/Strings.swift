@@ -33,4 +33,14 @@ struct Strings {
     static let restorePurchases = "Restore purchases"
     static let help = "Help"
     static let logOut = "Log out"
+    
+    //ProductView
+    static let whatAreYouLookingFor = "What are you looking for?"
+    static let tradeBy = "Trade by"
+    static let bata = "bata"
+    static let location = "Location"
+    static let loading = "Loading..."
+    static let latestDeals = "Latest deals"
+    static let viewAll = "View all"
+    static let flashSale = "Flash sale"
 }

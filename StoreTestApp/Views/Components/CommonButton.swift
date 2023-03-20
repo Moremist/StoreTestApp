@@ -21,29 +21,37 @@ struct CommonButton: View {
                     Rectangle()
                         .cornerRadius(16)
                         .foregroundColor(Color(UIColor(red: 0.306, green: 0.333, blue: 0.843, alpha: 1)))
-                    HStack {
-                        if let image = image {
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16, height: 16)
-                                .foregroundColor(.white)
-                                .padding(.trailing, reader.size.width / 5)
+                    HStack(spacing: 0) {
+                        Group {
+                            if let image = image {
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16, height: 16)
+                                    .foregroundColor(.white)
+                            } else {
+                                EmptyView()
+                            }
                         }
+                        .frame(width: reader.size.width / 3)
+                        
                         Text(title)
                             .font(.montserratBold16)
                             .foregroundColor(.white)
-                            .if(image != nil) { view in
-                                view
-                                    .padding(.trailing, reader.size.width / 5)
+                            .frame(width: reader.size.width / 3)
+                        
+                        Group {
+                            if let _ = image {
+                                Spacer()
+                                    .frame(width: reader.size.width / 3)
                             }
+                        }
                     }
                     
                 }
             })
         }
         .frame(height: 46)
-
     }
 }
 
