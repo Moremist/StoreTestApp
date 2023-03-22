@@ -122,6 +122,7 @@ struct ProfileView: View {
         }
         .alert("Are you sure?", isPresented: $showLogOutAlert) {
             Button("Log out") {
+                avatarImage = nil
                 userService.logOut()
             }
             Button("Cancel", role: .cancel) {
