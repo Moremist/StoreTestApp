@@ -72,12 +72,12 @@ struct ProductCellView: View {
                                 }
                                 .frame(width: cellWidth / 3.5, height: cellHeight / 12.5)
                                 
-                                StrokeText(text: product.name, width: 1, color: .black)
+                                StrokeText(text: product.name, width: 0.3, color: .black)
                                     .minimumScaleFactor(0.1)
                                     .font(.montserratBold20)
                                     .foregroundColor(.white)
                                 
-                                StrokeText(text: "$ " + product.price.description, width: 1, color: .black)
+                                StrokeText(text: "$ " + product.price.description, width: 0.3, color: .black)
                                     .minimumScaleFactor(0.1)
                                     .font(.montserratBold16)
                                     .foregroundColor(.white)
