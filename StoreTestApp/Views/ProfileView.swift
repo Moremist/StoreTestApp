@@ -37,58 +37,54 @@ struct ProfileView: View {
     @State private var avatarImage: Image?
     
     var body: some View {
-        ZStack {
-            Color("mainBGColor")
-                .edgesIgnoringSafeArea(.all)
+        
+        VStack {
+            Text(Strings.profile)
+                .font(.montserratBold16)
             
-            VStack {
-                Text(Strings.profile)
-                    .font(.montserratBold16)
-                
-                if let avatarImage = avatarImage {
-                    avatarImage
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(Circle())
-                        .frame(width: 60, height: 60)
-                        .padding(.top, 20)
-                } else {
-                    Image(systemName: "person.crop.circle.dashed")
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(Circle())
-                        .frame(width: 60, height: 60)
-                        .padding(.top, 20)
-                }
-                
-                PhotosPicker(selection: $avatarItem, matching: .images) {
-                    Text(Strings.changePhoto)
-                        .font(.montserratRegular12)
-                        .foregroundColor(.black)
-                }
-                .padding(.top, 8)
-                
-                Text(userService.currentUser?.name ?? "Unknown")
-                    .padding(.top, 5)
-                    .font(.montserratBold16)
-                
-                CommonButton(title: Strings.uploadItem, image: Image("uploadIcon")) {
-                    
-                }
-                .padding(.horizontal, 42)
-                .padding(.top, 38)
-                
-                ScrollView(showsIndicators: false) {
-                    ForEach(actions, id: \.text) { action in
-                        ProfileActionButtonView(icon: action.icon, text: action.text, style: action.style)
-                            .padding(.top, 25)
-                    }
-                }
-                .padding(.horizontal, 32)
-                .padding(.top, 14)
-                
-                Spacer()
+            if let avatarImage = avatarImage {
+                avatarImage
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 60, height: 60)
+                    .padding(.top, 20)
+            } else {
+                Image(systemName: "person.crop.circle.dashed")
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 60, height: 60)
+                    .padding(.top, 20)
             }
+            
+            PhotosPicker(selection: $avatarItem, matching: .images) {
+                Text(Strings.changePhoto)
+                    .font(.montserratRegular12)
+                    .foregroundColor(.black)
+            }
+            .padding(.top, 8)
+            
+            Text(userService.currentUser?.name ?? "Unknown")
+                .padding(.top, 5)
+                .font(.montserratBold16)
+            
+            CommonButton(title: Strings.uploadItem, image: Image("uploadIcon")) {
+                
+            }
+            .padding(.horizontal, 42)
+            .padding(.top, 38)
+            
+            ScrollView(showsIndicators: false) {
+                ForEach(actions, id: \.text) { action in
+                    ProfileActionButtonView(icon: action.icon, text: action.text, style: action.style)
+                        .padding(.top, 25)
+                }
+            }
+            .padding(.horizontal, 32)
+            .padding(.top, 14)
+            
+            Spacer()
         }
         .onChange(of: avatarItem) { _ in
             Task {

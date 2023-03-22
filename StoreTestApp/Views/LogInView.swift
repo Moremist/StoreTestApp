@@ -9,49 +9,44 @@ import SwiftUI
 
 struct LogInView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    
     @ObservedObject var viewModel = LogInViewModel()
     
     @State var emailText: String = ""
     @State var passwordText: String = ""
-
+    
     var body: some View {
-        ZStack {
-            Color("mainBGColor")
-                .edgesIgnoringSafeArea(.all)
-            
-            GeometryReader { reader in
-                VStack {
-                    Text(Strings.welcomeBack)
-                        .font(.montserratBold36)
-                        .padding(.top, reader.size.height / 8 - 30)
-                    
-                    VStack(spacing: 35) {
-                        TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email, type: .emailAddress)
-                        TextFieldInCapsuleView(text: $passwordText, placeHolder: Strings.password, isProtected: true, type: .alphabet)
+        GeometryReader { reader in
+            VStack {
+                Text(Strings.welcomeBack)
+                    .font(.montserratBold36)
+                    .padding(.top, reader.size.height / 8 - 30)
+                
+                VStack(spacing: 35) {
+                    TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email, type: .emailAddress)
+                    TextFieldInCapsuleView(text: $passwordText, placeHolder: Strings.password, isProtected: true, type: .alphabet)
+                }
+                .padding(.top, 80)
+                
+                CommonButton(title: Strings.logIn, action: {
+                    if viewModel.checkUser(email: emailText) {
+                        presentationMode.wrappedValue.dismiss()
                     }
-                    .padding(.top, 80)
-                    
-                    CommonButton(title: Strings.logIn, action: {
-                        if viewModel.checkUser(email: emailText) {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    })
-                    .padding(.top, 99)
-                    
-                    Spacer()
-                    
-                }
-                .overlay {
-                    CommonAlertView(
-                        title: viewModel.alertTitle,
-                        description: viewModel.alertDescription,
-                        isPresented: $viewModel.alertPresented
-                    )
-                }
+                })
+                .padding(.top, 99)
+                
+                Spacer()
+                
             }
-            .padding()
+            .overlay {
+                CommonAlertView(
+                    title: viewModel.alertTitle,
+                    description: viewModel.alertDescription,
+                    isPresented: $viewModel.alertPresented
+                )
+            }
         }
+        .padding()
     }
 }
 

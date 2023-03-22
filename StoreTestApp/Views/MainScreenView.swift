@@ -14,7 +14,11 @@ struct MainScreenView: View {
     @State var selectedIndex: Int = 0
     
     var body: some View {
-        VStack(spacing: 0) {
+        ZStack {
+            Color("mainBGColor")
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 0) {
                 switch selectedIndex {
                 case 0:
                     ProductsView()
@@ -27,10 +31,13 @@ struct MainScreenView: View {
                             Label("Profile", systemImage: "person")
                         }
                 default:
-                    EmptyView()
+                    Color("mainBGColor")
+                        .edgesIgnoringSafeArea(.all)
                 }
                 
                 CustomTabBar(selectedIndex: $selectedIndex)
+            }
+            .edgesIgnoringSafeArea(.bottom)
         }
         .overlay {
             SignInView(isPresented: !loggedIn)
@@ -38,7 +45,7 @@ struct MainScreenView: View {
         .onAppear {
             userService.setUpCurrentUserIfNeeded()
         }
-}
+    }
 }
 
 struct MainScreenView_Previews: PreviewProvider {

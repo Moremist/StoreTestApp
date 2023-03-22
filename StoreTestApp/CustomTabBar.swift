@@ -52,9 +52,9 @@ struct CustomTabBar: View {
                     }
                 }
             }
-            .padding(.bottom, 0)
+            .padding(.bottom, 20)
         }
-        .frame(height: 63)
+        .frame(height: 83)
     }
 }
 

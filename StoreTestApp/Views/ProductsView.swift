@@ -13,58 +13,53 @@ struct ProductsView: View {
     @State var searchText: String = ""
     
     var body: some View {
-        ZStack {
-            Color("mainBGColor")
-                .edgesIgnoringSafeArea(.all)
+        VStack {
+            ProductHeaderView()
+                .padding(.top, 24)
             
-            VStack {
-                ProductHeaderView()
-                    .padding(.top, 24)
-                
-                TextFieldInCapsuleView(text: $searchText, placeHolder: Strings.whatAreYouLookingFor, isSearch: true, type: .alphabet)
-                    .padding(.horizontal, 56)
-                
-                ProductCategoriesButtonsView()
-                    .padding(.horizontal, 16)
-                    .padding(.top, 16)
-                
-                if viewModel.isProductsLoaded {
-                    ScrollView(showsIndicators: false) {
-                        VStack(spacing: 0) {
-                            ProductsScrollView(
-                                products: viewModel.latestProductModels,
-                                title: Strings.latestDeals,
-                                addProduct: viewModel.addProductToCart(product:),
-                                cellSize: CGSize(width: 114, height: 149)
-                            )
-                            .padding(.horizontal, 12)
-                            .padding(.top, 30)
-                            
-                            let screenSize = UIScreen.main.bounds.width
-                            let flashSaleCellWidth = screenSize / 2 - 22
-                            let flashSaleCellSize = CGSize(width: flashSaleCellWidth, height: flashSaleCellWidth * 1.2)
-                            
-                            ProductsScrollView(
-                                products: viewModel.flashSaleProductModels,
-                                title: Strings.flashSale,
-                                addProduct: viewModel.addProductToCart(product:),
-                                addToFavourite: viewModel.addProductToFavourite(product:),
-                                cellSize: flashSaleCellSize
-                            )
-                            .padding(.horizontal, 12)
-                            .padding(.top, 30)
-                        }
-                    }
-                } else {
-                    VStack {
-                        Spacer()
-                        ProgressView(Strings.loading)
-                        Spacer()
+            TextFieldInCapsuleView(text: $searchText, placeHolder: Strings.whatAreYouLookingFor, isSearch: true, type: .alphabet)
+                .padding(.horizontal, 56)
+            
+            ProductCategoriesButtonsView()
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+            
+            if viewModel.isProductsLoaded {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        ProductsScrollView(
+                            products: viewModel.latestProductModels,
+                            title: Strings.latestDeals,
+                            addProduct: viewModel.addProductToCart(product:),
+                            cellSize: CGSize(width: 114, height: 149)
+                        )
+                        .padding(.horizontal, 12)
+                        .padding(.top, 30)
+                        
+                        let screenSize = UIScreen.main.bounds.width
+                        let flashSaleCellWidth = screenSize / 2 - 22
+                        let flashSaleCellSize = CGSize(width: flashSaleCellWidth, height: flashSaleCellWidth * 1.2)
+                        
+                        ProductsScrollView(
+                            products: viewModel.flashSaleProductModels,
+                            title: Strings.flashSale,
+                            addProduct: viewModel.addProductToCart(product:),
+                            addToFavourite: viewModel.addProductToFavourite(product:),
+                            cellSize: flashSaleCellSize
+                        )
+                        .padding(.horizontal, 12)
+                        .padding(.top, 30)
                     }
                 }
-                
-                Spacer()
+            } else {
+                VStack {
+                    Spacer()
+                    ProgressView(Strings.loading)
+                    Spacer()
+                }
             }
+            
+            Spacer()
         }
         .onAppear {
             Task {
