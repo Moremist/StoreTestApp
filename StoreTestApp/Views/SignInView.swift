@@ -18,53 +18,58 @@ struct SignInView: View {
     
     var body: some View {
         NavigationView {
-            GeometryReader { reader in
-                VStack {
-                    Text(Strings.signIn)
-                        .font(.montserratBold36)
-                        .padding(.top, reader.size.height / 8)
-                    
-                    Spacer()
-                    
-                    VStack(spacing: 35) {
-                        TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName, type: .alphabet)
-                        TextFieldInCapsuleView(text: $lastNameText, placeHolder: Strings.lastName, type: .alphabet)
-                        TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email, type: .emailAddress)
-                    }
-                    .padding(.top, reader.size.height / 10)
-                    
-                    CommonButton(title: Strings.signIn, action: {
-                        viewModel.registerUser(firstName: firstNameText, lastName: lastNameText, email: emailText)
-                    })
-                    .padding(.top, 35)
-                    
-                    HStack {
-                        Text(Strings.alreadyHaveAnAccount)
-                            .font(.montserratRegular12)
-                            .foregroundColor(.gray)
+            ZStack {
+                Color("mainBGColor")
+                    .edgesIgnoringSafeArea(.all)
+                
+                GeometryReader { reader in
+                    VStack {
+                        Text(Strings.signIn)
+                            .font(.montserratBold36)
+                            .padding(.top, reader.size.height / 8)
                         
-                        NavigationLink {
-                            LogInView()
-                        } label: {
-                            Text(Strings.logIn)
+                        Spacer()
+                        
+                        VStack(spacing: 35) {
+                            TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName, type: .alphabet)
+                            TextFieldInCapsuleView(text: $lastNameText, placeHolder: Strings.lastName, type: .alphabet)
+                            TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email, type: .emailAddress)
+                        }
+                        .padding(.top, reader.size.height / 10)
+                        
+                        CommonButton(title: Strings.signIn, action: {
+                            viewModel.registerUser(firstName: firstNameText, lastName: lastNameText, email: emailText)
+                        })
+                        .padding(.top, 35)
+                        
+                        HStack {
+                            Text(Strings.alreadyHaveAnAccount)
                                 .font(.montserratRegular12)
-                                .foregroundColor(.blue)
+                                .foregroundColor(.gray)
+                            
+                            NavigationLink {
+                                LogInView()
+                            } label: {
+                                Text(Strings.logIn)
+                                    .font(.montserratRegular12)
+                                    .foregroundColor(.blue)
+                            }
+                            
+                            Spacer()
+                        }
+                        .padding(.top, 8)
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .leading, spacing: 38) {
+                            SignInWithButtonView(iconImageName: "googleIcon", text: Strings.signInWithGoogle)
+                            SignInWithButtonView(iconImageName: "appleIcon", text: Strings.signInWithApple)
                         }
                         
                         Spacer()
                     }
-                    .padding(.top, 8)
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 38) {
-                        SignInWithButtonView(iconImageName: "googleIcon", text: Strings.signInWithGoogle)
-                        SignInWithButtonView(iconImageName: "appleIcon", text: Strings.signInWithApple)
-                    }
-                    
-                    Spacer()
+                    .padding()
                 }
-                .padding()
             }
         }
         .opacity(isPresented ? 1 : 0)

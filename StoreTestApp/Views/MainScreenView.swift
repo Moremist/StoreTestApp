@@ -11,24 +11,26 @@ struct MainScreenView: View {
     @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
     private let userService = UsersService.shared
     
+    @State var selectedIndex: Int = 0
+    
     var body: some View {
-        TabView {
-            ProductsView()
-                .tabItem {
-                    Label("Products", systemImage: "house.fill")
+        VStack(spacing: 0) {
+                switch selectedIndex {
+                case 0:
+                    ProductsView()
+                        .tabItem {
+                            Label("Products", systemImage: "house.fill")
+                        }
+                case 4:
+                    ProfileView()
+                        .tabItem {
+                            Label("Profile", systemImage: "person")
+                        }
+                default:
+                    EmptyView()
                 }
-            
-            ProfileView()
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
-            
-            #if targetEnvironment(simulator)
-            CoreDataDebugView()
-                .tabItem {
-                    Label("Debug", systemImage: "server.rack")
-                }
-            #endif
+                
+                CustomTabBar(selectedIndex: $selectedIndex)
         }
         .overlay {
             SignInView(isPresented: !loggedIn)

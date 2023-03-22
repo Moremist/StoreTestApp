@@ -15,6 +15,8 @@ class ProductViewModel: ObservableObject {
     private var latestProductSubject = PassthroughSubject<[ProductModel], Never>()
     private var flashSaleProductSubject = PassthroughSubject<[ProductModel], Never>()
     
+    private let networkService = NetworkService()
+    
     private var commonCancellables = Set<AnyCancellable>()
     
     @Published var latestProductModels: [ProductModel] = []
@@ -43,34 +45,14 @@ class ProductViewModel: ObservableObject {
     }
     
     func fetchLastSeenProducts() async {
-        guard let url = URL(string: latestSeenProductsURLString) else {
-            print("Invalid URLString")
-            return
-        }
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            if let decodedResponse = try? JSONDecoder().decode(LatestProductModels.self, from: data) {
-                self.latestProductSubject.send(decodedResponse.latest)
-            }
-        } catch {
-            print("Invalid data")
+        if let response: LatestProductModels = await networkService.fetchData(urlString: latestSeenProductsURLString) {
+            self.latestProductSubject.send(response.latest)
         }
     }
     
     func fetchFlashSaleProducts() async {
-        guard let url = URL(string: flashSaleProductsURLString) else {
-            print("Invalid URLString")
-            return
-        }
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            if let decodedResponse = try? JSONDecoder().decode(FlashSaleProductModels.self, from: data) {
-                self.flashSaleProductSubject.send(decodedResponse.flashSale)
-            }
-        } catch {
-            print("Invalid data")
+        if let response: FlashSaleProductModels = await networkService.fetchData(urlString: flashSaleProductsURLString) {
+            self.flashSaleProductSubject.send(response.flashSale)
         }
     }
     
