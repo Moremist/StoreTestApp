@@ -23,11 +23,12 @@ struct MainScreenView: View {
                     Label("Profile", systemImage: "person")
                 }
             
+            #if targetEnvironment(simulator)
             CoreDataDebugView()
                 .tabItem {
                     Label("Debug", systemImage: "server.rack")
                 }
-            
+            #endif
         }
         .overlay {
             SignInView(isPresented: !loggedIn)
@@ -35,7 +36,7 @@ struct MainScreenView: View {
         .onAppear {
             userService.setUpCurrentUserIfNeeded()
         }
-    }
+}
 }
 
 struct MainScreenView_Previews: PreviewProvider {

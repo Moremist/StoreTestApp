@@ -71,6 +71,9 @@ struct ProductsView: View {
 }
 
 struct ProductHeaderView: View {
+    @ObservedObject var userService = UsersService.shared
+    @State private var avatarImage: Image?
+    
     var body: some View {
         HStack(alignment: .top) {
             Button {
@@ -98,12 +101,20 @@ struct ProductHeaderView: View {
                 Button {
                     
                 } label: {
-                    Image(systemName: "person.crop.circle.dashed")
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(Circle())
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.black)
+                    Group {
+                        if let avatarImage = avatarImage {
+                            avatarImage
+                                .resizable()
+                            
+                        } else {
+                            Image(systemName: "person.crop.circle.dashed")
+                                .resizable()
+                                .foregroundColor(.black)
+                        }
+                    }
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 30, height: 30)
                 }
                 
                 Button {
@@ -126,6 +137,11 @@ struct ProductHeaderView: View {
         }
         .padding(.leading, 15)
         .padding(.trailing, 45)
+        .onAppear {
+            if let image = userService.getCurrentUserAvatar() {
+                avatarImage = Image(uiImage: image)
+            }
+        }
     }
 }
 
@@ -171,7 +187,7 @@ struct ProductCategoriesButtonsView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-
+                    
                     Spacer()
                 }
             }
@@ -187,36 +203,36 @@ struct ProductsScrollView: View {
     var cellSize: CGSize
     
     var body: some View {
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(title)
-                        .font(.montserratRegular24)
+        VStack(alignment: .leading) {
+            HStack {
+                Text(title)
+                    .font(.montserratRegular24)
+                
+                Spacer()
+                
+                Button {
                     
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        Text(Strings.viewAll)
-                            .font(.montserratRegular16)
-                            .foregroundColor(.gray)
-                    }
-                    
+                } label: {
+                    Text(Strings.viewAll)
+                        .font(.montserratRegular16)
+                        .foregroundColor(.gray)
                 }
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(products, id: \.name) { product in
-                            ProductCellView(
-                                product: product,
-                                addProductAction: addProduct,
-                                favouriteAction: addToFavourite
-                            )
-                            .frame(width: cellSize.width, height: cellSize.height)
-                        }
+            }
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(products, id: \.name) { product in
+                        ProductCellView(
+                            product: product,
+                            addProductAction: addProduct,
+                            favouriteAction: addToFavourite
+                        )
+                        .frame(width: cellSize.width, height: cellSize.height)
                     }
                 }
             }
+        }
     }
 }
 

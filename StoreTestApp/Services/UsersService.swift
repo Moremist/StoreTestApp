@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class UsersService: ObservableObject {
     static let shared = UsersService()
@@ -103,5 +104,23 @@ class UsersService: ObservableObject {
         UserDefaults.standard.set(user.email, forKey: UserDefaults.Keys.currentUserEmailKey)
         UserDefaults.standard.set(true, forKey: UserDefaults.Keys.loggedInKey)
     }
+    
+    func saveCurrentUserAvatar(image: UIImage) {
+        let imageData = image.jpegData(compressionQuality: 1)
+        guard let currentUserEmail = currentUser?.email else { return }
+        if let user = getUserByEmail(userEmail: currentUserEmail) {
+            user.avatar = imageData
+        }
+        saveData()
+    }
+    
+    func getCurrentUserAvatar() -> UIImage? {
+        if let imageData = currentUser?.avatar {
+            return UIImage(data: imageData)
+        } else {
+            return nil
+        }
+    }
+    
 }
 

@@ -62,7 +62,6 @@ struct ProfileView: View {
                     .font(.montserratRegular12)
                     .foregroundColor(.black)
             }
-            
             .padding(.top, 8)
             
             Text(userService.currentUser?.name ?? "Unknown")
@@ -90,10 +89,16 @@ struct ProfileView: View {
             Task {
                 if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
                     if let uiImage = UIImage(data: data) {
+                        userService.saveCurrentUserAvatar(image: uiImage)
                         avatarImage = Image(uiImage: uiImage)
                         return
                     }
                 }
+            }
+        }
+        .onAppear {
+            if let image = userService.getCurrentUserAvatar() {
+                avatarImage = Image(uiImage: image)
             }
         }
     }
