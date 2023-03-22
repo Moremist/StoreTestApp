@@ -36,6 +36,8 @@ struct ProfileView: View {
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage: Image?
     
+    @State private var showLogOutAlert: Bool = false
+    
     var body: some View {
         
         VStack {
@@ -77,8 +79,24 @@ struct ProfileView: View {
             
             ScrollView(showsIndicators: false) {
                 ForEach(actions, id: \.text) { action in
-                    ProfileActionButtonView(icon: action.icon, text: action.text, style: action.style)
-                        .padding(.top, 25)
+                    ProfileActionButtonView(
+                        icon: action.icon,
+                        text: action.text,
+                        style: action.style,
+                        action: {
+                            switch action.style {
+                            case .logOut:
+                                showLogOutAlert = true
+                            case .help:
+                                if let tgURL = URL.init(string: "tg://resolve?domain=Moremist") {
+                                    UIApplication.shared.open(tgURL)
+                                }
+                            default:
+                                return
+                            }
+                        }
+                    )
+                    .padding(.top, 25)
                 }
             }
             .padding(.horizontal, 32)
@@ -102,6 +120,14 @@ struct ProfileView: View {
                 avatarImage = Image(uiImage: image)
             }
         }
+        .alert("Are you sure?", isPresented: $showLogOutAlert) {
+            Button("Log out") {
+                userService.logOut()
+            }
+            Button("Cancel", role: .cancel) {
+                showLogOutAlert = false
+            }
+        }
     }
 }
 
@@ -112,19 +138,12 @@ struct ProfileActionButtonView: View {
     var text: String
     var style: ProfileActionStyle
     
+    var action: () -> Void
+    
     var body: some View {
         Button(
             action: {
-                switch style {
-                case .logOut:
-                    userService.logOut()
-                case .help:
-                    if let tgURL = URL.init(string: "tg://resolve?domain=Moremist") {
-                        UIApplication.shared.open(tgURL)
-                    }
-                default:
-                    return
-                }
+                action()
             },
             label: {
                 HStack {
