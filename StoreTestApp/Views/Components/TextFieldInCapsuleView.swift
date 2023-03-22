@@ -13,12 +13,14 @@ struct TextFieldInCapsuleView: View {
     var placeHolder: String
     var isProtected: Bool = false
     var isSearch: Bool = false
+    var type: UIKeyboardType
     
-    init(text: Binding<String>, placeHolder: String, isProtected: Bool = false, isSearch: Bool = false) {
+    init(text: Binding<String>, placeHolder: String, isProtected: Bool = false, isSearch: Bool = false, type: UIKeyboardType) {
         self._text = text
         self.placeHolder = placeHolder
         self.isProtected = isProtected
         self.isSearch = isSearch
+        self.type = type
     }
     
     var body: some View {
@@ -48,6 +50,8 @@ struct TextFieldInCapsuleView: View {
                             Spacer()
                         }
                     })
+                    .keyboardType(type)
+                    .autocorrectionDisabled(true)
                     .font(.montserratRegular12)
                     .multilineTextAlignment(.center)
             }
@@ -88,6 +92,6 @@ struct TextFieldInCapsuleView: View {
 
 struct TextFieldInCapsuleView_Previews: PreviewProvider {
     static var previews: some View {
-        TextFieldInCapsuleView(text: .constant(""), placeHolder: Strings.firstName, isProtected: true)
+        TextFieldInCapsuleView(text: .constant(""), placeHolder: Strings.firstName, isProtected: true, type: .namePhonePad)
     }
 }

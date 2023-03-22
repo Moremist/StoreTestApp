@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct LogInView: View {
-    @AppStorage("loggedIn") private var loggedIn = false
-
-    @State var firstNameText: String = ""
+    @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
+    
+    @ObservedObject var viewModel = LogInViewModel()
+    
+    @State var emailText: String = ""
     @State var passwordText: String = ""
 
     var body: some View {
@@ -21,18 +23,25 @@ struct LogInView: View {
                     .padding(.top, reader.size.height / 8 - 30)
                 
                 VStack(spacing: 35) {
-                    TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName)
-                    TextFieldInCapsuleView(text: $passwordText, placeHolder: Strings.password, isProtected: true)
+                    TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email, type: .emailAddress)
+                    TextFieldInCapsuleView(text: $passwordText, placeHolder: Strings.password, isProtected: true, type: .alphabet)
                 }
                 .padding(.top, 80)
                 
                 CommonButton(title: Strings.logIn, action: {
-                    loggedIn = true
+                    viewModel.checkUser(email: emailText)
                 })
                 .padding(.top, 99)
                 
                 Spacer()
                 
+            }
+            .overlay {
+                CommonAlertView(
+                    title: viewModel.alertTitle,
+                    description: viewModel.alertDescription,
+                    isPresented: $viewModel.alertPresented
+                )
             }
         }
         .padding()

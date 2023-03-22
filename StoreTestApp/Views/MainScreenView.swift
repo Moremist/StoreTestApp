@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MainScreenView: View {
-    @AppStorage("loggedIn") private var loggedIn = false
+    @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
+    private let userService = UsersService.shared
     
     var body: some View {
         TabView {
@@ -21,15 +22,26 @@ struct MainScreenView: View {
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }
+            
+            CoreDataDebugView()
+                .tabItem {
+                    Label("Debug", systemImage: "server.rack")
+                }
+            
         }
         .overlay {
             SignInView(isPresented: !loggedIn)
+        }
+        .onAppear {
+            userService.setUpCurrentUserIfNeeded()
         }
     }
 }
 
 struct MainScreenView_Previews: PreviewProvider {
+    static var context = UsersService.shared.persistentContainer.viewContext
     static var previews: some View {
         MainScreenView()
+            .environment(\.managedObjectContext, context)
     }
 }

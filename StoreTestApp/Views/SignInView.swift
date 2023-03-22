@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct SignInView: View {
-    @AppStorage("loggedIn") private var loggedIn = false
 
+struct SignInView: View {
+    @ObservedObject var viewModel = SignInViewModel()
+    
     var isPresented: Bool
     @State var firstNameText: String = ""
     @State var lastNameText: String = ""
@@ -26,15 +27,14 @@ struct SignInView: View {
                     Spacer()
                     
                     VStack(spacing: 35) {
-                        TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName)
-                        TextFieldInCapsuleView(text: $lastNameText, placeHolder: Strings.lastName)
-                        TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email)
+                        TextFieldInCapsuleView(text: $firstNameText, placeHolder: Strings.firstName, type: .alphabet)
+                        TextFieldInCapsuleView(text: $lastNameText, placeHolder: Strings.lastName, type: .alphabet)
+                        TextFieldInCapsuleView(text: $emailText, placeHolder: Strings.email, type: .emailAddress)
                     }
                     .padding(.top, reader.size.height / 10)
-
                     
                     CommonButton(title: Strings.signIn, action: {
-                        loggedIn = true
+                        viewModel.registerUser(firstName: firstNameText, lastName: lastNameText, email: emailText)
                     })
                     .padding(.top, 35)
                     
@@ -67,12 +67,19 @@ struct SignInView: View {
             }
         }
         .opacity(isPresented ? 1 : 0)
+        .overlay {
+            CommonAlertView(
+                title: viewModel.alertTitle,
+                description: viewModel.alertDescription,
+                isPresented: $viewModel.alertPresented
+            )
+        }
     }
 }
 
 struct SignInWithButtonView: View {
-    @AppStorage("loggedIn") private var loggedIn = false
-
+    @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
+    
     var iconImageName: String
     var text: String
     

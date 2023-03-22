@@ -16,6 +16,7 @@ struct CommonButton: View {
         GeometryReader { reader in
             Button(action: {
                 action()
+                UIApplication.shared.hideKeyboard()
             }, label: {
                 ZStack {
                     Rectangle()

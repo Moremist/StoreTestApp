@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 enum ProfileActionStyle: Equatable {
-    case navigate, none, logOut
+    case navigate, none, logOut, help
     case info(String)
 }
 
@@ -20,13 +20,15 @@ struct ProfileAction {
 }
 
 struct ProfileView: View {
+    @ObservedObject var userService = UsersService.shared
+    
     private var actions: [ProfileAction] = [
         ProfileAction(icon: Image("cardIcon"), text: Strings.tradeStore, style: .navigate),
         ProfileAction(icon: Image("cardIcon"), text: Strings.paymentMethod, style: .navigate),
         ProfileAction(icon: Image("cardIcon"), text: Strings.balance, style: .info("$1593")),
         ProfileAction(icon: Image("cardIcon"), text: Strings.tradeHistory, style: .navigate),
         ProfileAction(icon: Image("restoreIcon"), text: Strings.restorePurchases, style: .navigate),
-        ProfileAction(icon: Image("helpIcon"), text: Strings.help, style: .none),
+        ProfileAction(icon: Image("helpIcon"), text: Strings.help, style: .help),
         ProfileAction(icon: Image("logOutIcon"), text: Strings.logOut, style: .logOut)
     ]
     
@@ -63,7 +65,7 @@ struct ProfileView: View {
             
             .padding(.top, 8)
             
-            Text("Satria Adhi Pradana")
+            Text(userService.currentUser?.name ?? "Unknown")
                 .padding(.top, 5)
                 .font(.montserratBold16)
             
@@ -98,7 +100,8 @@ struct ProfileView: View {
 }
 
 struct ProfileActionButtonView: View {
-    @AppStorage("loggedIn") private var loggedIn = false
+    @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
+    private let userService = UsersService.shared
     
     var icon: Image
     var text: String
@@ -107,8 +110,15 @@ struct ProfileActionButtonView: View {
     var body: some View {
         Button(
             action: {
-                if style == .logOut {
-                    loggedIn = false
+                switch style {
+                case .logOut:
+                    userService.logOut()
+                case .help:
+                    if let tgURL = URL.init(string: "tg://resolve?domain=Moremist") {
+                        UIApplication.shared.open(tgURL)
+                    }
+                default:
+                    return
                 }
             },
             label: {
@@ -138,7 +148,7 @@ struct ProfileActionButtonView: View {
                 .eraseToAnyView()
         case .info(let text):
             return Text(text).eraseToAnyView()
-        case .none, .logOut:
+        case .none, .logOut, .help:
             return EmptyView().eraseToAnyView()
         }
     }

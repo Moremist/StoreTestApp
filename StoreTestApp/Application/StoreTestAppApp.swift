@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct StoreTestAppApp: App {
+    let context = UsersService.shared.persistentContainer.viewContext
+    
     var body: some Scene {
         WindowGroup {
             MainScreenView()
+                .environment(\.managedObjectContext, context)
         }
     }
 }

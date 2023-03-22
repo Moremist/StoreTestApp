@@ -17,7 +17,7 @@ struct ProductsView: View {
             ProductHeaderView()
                 .padding(.top, 24)
             
-            TextFieldInCapsuleView(text: $searchText, placeHolder: Strings.whatAreYouLookingFor, isSearch: true)
+            TextFieldInCapsuleView(text: $searchText, placeHolder: Strings.whatAreYouLookingFor, isSearch: true, type: .alphabet)
                 .padding(.horizontal, 56)
             
             ProductCategoriesButtonsView()
