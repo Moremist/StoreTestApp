@@ -9,10 +9,11 @@ import SwiftUI
 
 struct MainScreenView: View {
     @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
-    private let userService = UsersService.shared
-    
     @State var selectedIndex: Int = 0
-    
+   
+    private let userService = UsersService.shared
+    private let productViewModel = ProductViewModel()
+
     var body: some View {
         ZStack {
             Color("mainBGColor")
@@ -21,15 +22,16 @@ struct MainScreenView: View {
             VStack(spacing: 0) {
                 switch selectedIndex {
                 case 0:
-                    ProductsView()
-                        .tabItem {
-                            Label("Products", systemImage: "house.fill")
-                        }
+                    ProductsView(viewModel: productViewModel)
+                case 3:
+                    #if targetEnvironment(simulator)
+                    CoreDataDebugView()
+                    #else
+                    Color("mainBGColor")
+                        .edgesIgnoringSafeArea(.all)
+                    #endif
                 case 4:
                     ProfileView()
-                        .tabItem {
-                            Label("Profile", systemImage: "person")
-                        }
                 default:
                     Color("mainBGColor")
                         .edgesIgnoringSafeArea(.all)

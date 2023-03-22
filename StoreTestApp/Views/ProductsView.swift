@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProductsView: View {
-    @StateObject var viewModel = ProductViewModel()
+    @ObservedObject var viewModel: ProductViewModel
     
     @State var searchText: String = ""
     
@@ -238,6 +238,6 @@ struct ProductsScrollView: View {
 
 struct ProductsView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductsView()
+        ProductsView(viewModel: ProductViewModel())
     }
 }

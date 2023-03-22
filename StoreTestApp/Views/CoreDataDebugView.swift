@@ -23,6 +23,8 @@ struct CoreDataDebugView: View {
                     }
                 }
             }
+            Spacer()
+            
             Button("Delete all") {
                 userService.clearUsers()
             }
