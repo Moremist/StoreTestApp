@@ -42,7 +42,7 @@ class UsersService: ObservableObject {
         let user = UserModel(context: context)
         
         user.name = name
-        user.email = email
+        user.email = email.lowercased()
         
         let id = UUID()
         user.id = id
@@ -61,7 +61,7 @@ class UsersService: ObservableObject {
         let fetchRequest: NSFetchRequest<UserModel>
         fetchRequest = UserModel.fetchRequest()
         
-        let idPredicate = NSPredicate(format: "email = %@", userEmail)
+        let idPredicate = NSPredicate(format: "email = %@", userEmail.lowercased())
         fetchRequest.predicate = idPredicate
         
         do {

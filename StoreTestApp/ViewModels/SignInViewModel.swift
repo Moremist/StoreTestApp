@@ -28,6 +28,11 @@ class SignInViewModel: AlertSupported {
             showAlert(title: "Warning", description: "Enter valid email")
             return
         }
+        
+        if let _ = userService.getUserByEmail(userEmail: email) {
+            showAlert(title: "Warning", description: "Email is already registered. User LogIn button to log in")
+            return
+        }
 
         
         do {

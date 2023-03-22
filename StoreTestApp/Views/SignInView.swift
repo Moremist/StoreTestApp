@@ -50,6 +50,7 @@ struct SignInView: View {
                                 .font(.montserratRegular12)
                                 .foregroundColor(.blue)
                         }
+                        
                         Spacer()
                     }
                     .padding(.top, 8)
