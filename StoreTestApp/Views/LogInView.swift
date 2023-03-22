@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LogInView: View {
-    @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @ObservedObject var viewModel = LogInViewModel()
     
     @State var emailText: String = ""
@@ -29,7 +29,9 @@ struct LogInView: View {
                 .padding(.top, 80)
                 
                 CommonButton(title: Strings.logIn, action: {
-                    viewModel.checkUser(email: emailText)
+                    if viewModel.checkUser(email: emailText) {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 })
                 .padding(.top, 99)
                 

@@ -100,7 +100,6 @@ struct ProfileView: View {
 }
 
 struct ProfileActionButtonView: View {
-    @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
     private let userService = UsersService.shared
     
     var icon: Image
