@@ -78,25 +78,31 @@ struct ProfileView: View {
             .padding(.top, 38)
             
             ScrollView(showsIndicators: false) {
-                ForEach(actions, id: \.text) { action in
-                    ProfileActionButtonView(
-                        icon: action.icon,
-                        text: action.text,
-                        style: action.style,
-                        action: {
-                            switch action.style {
-                            case .logOut:
-                                showLogOutAlert = true
-                            case .help:
-                                if let tgURL = URL.init(string: "tg://resolve?domain=Moremist") {
-                                    UIApplication.shared.open(tgURL)
+                VStack {
+                    ForEach(actions, id: \.text) { action in
+                        ProfileActionButtonView(
+                            icon: action.icon,
+                            text: action.text,
+                            style: action.style,
+                            action: {
+                                switch action.style {
+                                case .logOut:
+                                    showLogOutAlert = true
+                                case .help:
+                                    if let tgURL = URL.init(string: "tg://resolve?domain=Moremist") {
+                                        UIApplication.shared.open(tgURL)
+                                    }
+                                default:
+                                    return
                                 }
-                            default:
-                                return
                             }
-                        }
-                    )
-                    .padding(.top, 25)
+                        )
+                        .padding(.top, 25)
+                    }
+                    
+                    Color
+                        .clear
+                        .frame(height: 80)
                 }
             }
             .padding(.horizontal, 32)

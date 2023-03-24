@@ -10,36 +10,34 @@ import SwiftUI
 struct MainScreenView: View {
     @AppStorage(UserDefaults.Keys.loggedInKey) private var loggedIn = false
     @State var selectedIndex: Int = 0
-   
+    
     private let userService = UsersService.shared
     private let productViewModel = ProductViewModel()
-
+    
     var body: some View {
         ZStack {
             Color("mainBGColor")
                 .edgesIgnoringSafeArea(.all)
             
-            VStack(spacing: 0) {
-                switch selectedIndex {
-                case 0:
-                    ProductsView(viewModel: productViewModel)
-                case 3:
-                    #if targetEnvironment(simulator)
-                    CoreDataDebugView()
-                    #else
-                    Color("mainBGColor")
-                        .edgesIgnoringSafeArea(.all)
-                    #endif
-                case 4:
-                    ProfileView()
-                default:
-                    Color("mainBGColor")
-                        .edgesIgnoringSafeArea(.all)
-                }
+            switch selectedIndex {
+            case 0:
+                ProductsView(viewModel: productViewModel)
+            case 3:
+            #if targetEnvironment(simulator)
+                CoreDataDebugView()
+            #else
+                Color("mainBGColor")
+                    .edgesIgnoringSafeArea(.all)
+            #endif
                 
-                CustomTabBar(selectedIndex: $selectedIndex)
+            case 4:
+                ProfileView()
+            default:
+                Color("mainBGColor")
+                    .edgesIgnoringSafeArea(.all)
             }
-            .edgesIgnoringSafeArea(.bottom)
+            
+            CustomTabBar(selectedIndex: $selectedIndex)
         }
         .overlay {
             SignInView(isPresented: !loggedIn)

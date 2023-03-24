@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct ProductCellView: View {
     var product: ProductModel
@@ -19,15 +20,19 @@ struct ProductCellView: View {
             let cellWidth = reader.size.width
             
             ZStack {
-                AsyncImage(url: URL(string: product.imageURL)) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: cellWidth, height: cellHeight)
-                } placeholder: {
-                    ProgressView()
+                NavigationLink {
+                    ProductDetailsView()
+                } label: {
+                    CachedAsyncImage(url: URL(string: product.imageURL)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: cellWidth, height: cellHeight)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .cornerRadius(10)
                 }
-                .cornerRadius(10)
                 
                 ZStack {
                     VStack {

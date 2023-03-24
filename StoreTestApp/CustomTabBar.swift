@@ -23,38 +23,40 @@ struct CustomTabBar: View {
     }
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .foregroundColor(Color("mainBGColor"))
-            Rectangle()
-                .cornerRadius(40, corners: [.topLeft, .topRight])
-                .foregroundColor(.white)
-            
-            HStack {
-                ForEach(tabBarImagesStrings.indices, id: \.self) { index in
-                    HStack {
-                        Spacer()
-                        Button {
-                            selectedIndex = index
-                        } label: {
-                            ZStack {
-                                if selectedIndex == index {
-                                    Circle()
-                                        .foregroundColor(Color("backgroundCircleColor"))
-                                        .frame(width: 40, height: 40)
+        VStack {
+            Spacer()
+            ZStack {
+                Rectangle()
+                    .cornerRadius(40, corners: [.topLeft, .topRight])
+                    .foregroundColor(.white)
+                
+                HStack {
+                    ForEach(tabBarImagesStrings.indices, id: \.self) { index in
+                        HStack {
+                            Spacer()
+                            Button {
+                                selectedIndex = index
+                            } label: {
+                                ZStack {
+                                    if selectedIndex == index {
+                                        Circle()
+                                            .foregroundColor(Color("backgroundCircleColor"))
+                                            .frame(width: 40, height: 40)
+                                    }
+                                    
+                                    Image(tabBarImagesStrings[index])
                                 }
-                                
-                                Image(tabBarImagesStrings[index])
                             }
+                            
+                            Spacer()
                         }
-                        
-                        Spacer()
                     }
                 }
+                .padding(.bottom, 20)
             }
-            .padding(.bottom, 20)
+            .frame(height: 83)
         }
-        .frame(height: 83)
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
