@@ -13,7 +13,7 @@ class ProductDetailModel: Decodable {
     let numberOfReviews, price: Int
     let colors: [String]
     let imageUrls: [String]
-
+    
     enum CodingKeys: String, CodingKey {
         case name, description, rating
         case numberOfReviews = "number_of_reviews"

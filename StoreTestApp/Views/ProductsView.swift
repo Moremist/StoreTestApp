@@ -10,12 +10,14 @@ import SwiftUI
 struct ProductsView: View {
     @ObservedObject var viewModel: ProductViewModel
     
+    @Binding var selectedTab: Int
+    
     @State var searchText: String = ""
     
     var body: some View {
         NavigationStack {
             VStack {
-                ProductHeaderView()
+                ProductHeaderView(selectedTab: $selectedTab)
                     .padding(.top, 24)
                 
                 TextFieldInCapsuleView(text: $searchText, placeHolder: Strings.whatAreYouLookingFor, isSearch: true, type: .alphabet)
@@ -66,6 +68,7 @@ struct ProductsView: View {
                 
                 Spacer()
             }
+            .background(Color("mainBGColor"))
         }
         .onAppear {
             Task {
@@ -79,6 +82,8 @@ struct ProductsView: View {
 struct ProductHeaderView: View {
     @ObservedObject var userService = UsersService.shared
     @State private var avatarImage: Image?
+    
+    @Binding var selectedTab: Int
     
     var body: some View {
         HStack(alignment: .top) {
@@ -105,7 +110,7 @@ struct ProductHeaderView: View {
             
             VStack {
                 Button {
-                    
+                    selectedTab = 4
                 } label: {
                     Group {
                         if let avatarImage = avatarImage {
@@ -244,6 +249,6 @@ struct ProductsScrollView: View {
 
 struct ProductsView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductsView(viewModel: ProductViewModel())
+        ProductsView(viewModel: ProductViewModel(), selectedTab: .constant(0))
     }
 }

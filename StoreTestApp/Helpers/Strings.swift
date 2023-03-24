@@ -43,4 +43,9 @@ struct Strings {
     static let latestDeals = "Latest deals"
     static let viewAll = "View all"
     static let flashSale = "Flash sale"
+    
+    //ProductDetailsView
+    static let idk2500 = "#2500"
+    static let addToCart = "ADD TO CART"
+    static let quantity = "Quantity:"
 }

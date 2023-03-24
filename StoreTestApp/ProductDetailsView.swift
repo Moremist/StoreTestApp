@@ -121,7 +121,7 @@ struct ProductDetailsBottomView: View {
             VStack {
                 HStack {
                     VStack(alignment: .leading, spacing: 11) {
-                        Text("Quantity:")
+                        Text(Strings.quantity)
                             .foregroundColor(.gray)
                             .font(.montserratRegular14)
                         HStack(spacing: 21) {
@@ -146,11 +146,11 @@ struct ProductDetailsBottomView: View {
                                 .foregroundColor(Color("textSecondaryColor"))
                             
                             HStack {
-                                Text("#2500")
+                                Text(Strings.idk2500)
                                     .foregroundColor(.white.opacity(0.5))
                                     .font(.montserratRegular10)
                                 
-                                Text("ADD TO CART")
+                                Text(Strings.addToCart)
                                     .foregroundColor(.white)
                                     .font(.montserratBold10)
                             }
