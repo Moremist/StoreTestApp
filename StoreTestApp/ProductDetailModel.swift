@@ -33,3 +33,9 @@ class ProductDetailModel: Decodable {
     
     static let dummyModel = ProductDetailModel(name: "", description: "", rating: 0.0, numberOfReviews: 0, price: 0, colors: [], imageUrls: [])
 }
+
+extension ProductDetailModel: Equatable {
+    static func == (lhs: ProductDetailModel, rhs: ProductDetailModel) -> Bool {
+        return lhs.name == rhs.name && lhs.description == rhs.description
+    }
+}

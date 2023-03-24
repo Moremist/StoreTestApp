@@ -17,6 +17,8 @@ struct ProductDetailsView: View {
     
     @State private var selectedImageIndex: Int = 0
     
+    @State private var offset: CGFloat = 200
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -54,7 +56,7 @@ struct ProductDetailsView: View {
                         Text(product.rating.description)
                             .font(.montserratBold16)
                         
-                        Text("(" + product.numberOfReviews.description + "reviews)")
+                        Text("(" + product.numberOfReviews.description + " reviews)")
                             .font(.montserratRegular16)
                             .foregroundColor(.gray)
                         
@@ -107,6 +109,12 @@ struct ProductDetailsView: View {
             }
             
             ProductDetailsBottomView()
+                .offset(y: offset)
+                .onChange(of: product) { _ in
+                    withAnimation(.spring()) {
+                        offset = 0
+                    }
+                }
         }
     }
 }
