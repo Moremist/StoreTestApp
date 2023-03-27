@@ -152,6 +152,7 @@
 			children = (
 				6FF77B6829C9AE8100D4B752 /* UsersDataModel.xcdatamodeld */,
 				6FF11DF229C889C3004469B8 /* ProductModel.swift */,
+				6F23466129CC96F5009C96EA /* ProductDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,11 +190,6 @@
 				6F2AFA3229C75A1D00F1C73D /* Views */,
 				6F2AF9DA29C73DE100F1C73D /* Assets.xcassets */,
 				6F2AFA2529C7466300F1C73D /* Info.plist */,
-				6FB7B3F829CB62E0000F1792 /* CustomTabBar.swift */,
-				6F23465F29CC96DA009C96EA /* ProductDetailsView.swift */,
-				6F23466129CC96F5009C96EA /* ProductDetailModel.swift */,
-				6F23466529CCA631009C96EA /* Color+Extension.swift */,
-				6F2B73C329CDB45400D1A9E0 /* ProductDetailsViewModel.swift */,
 			);
 			path = StoreTestApp;
 			sourceTree = "<group>";
@@ -233,6 +229,7 @@
 				6F62B41829C76DC800E58355 /* ProfileView.swift */,
 				6FEACF2029C75D9600F5221C /* MainScreenView.swift */,
 				6FF11DED29C87BCC004469B8 /* ProductsView.swift */,
+				6F23465F29CC96DA009C96EA /* ProductDetailsView.swift */,
 				6FB7B3F629CB5249000F1792 /* CoreDataDebugView.swift */,
 			);
 			path = Views;
@@ -244,6 +241,7 @@
 				6F2AFA2E29C74F3A00F1C73D /* TextFieldInCapsuleView.swift */,
 				6FB7B3EA29CB2C2E000F1792 /* CommonAlertView.swift */,
 				6F2AFA3029C754EA00F1C73D /* CommonButton.swift */,
+				6FB7B3F829CB62E0000F1792 /* CustomTabBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -262,6 +260,7 @@
 				6F2AFA2629C746D200F1C73D /* Font+Extensions.swift */,
 				6F2AFA2829C747DD00F1C73D /* View+Extensions.swift */,
 				6F62B41A29C7760400E58355 /* UIApplication+Extensions.swift */,
+				6F23466529CCA631009C96EA /* Color+Extension.swift */,
 				6FB7B3F229CB4BC3000F1792 /* String+Extensions.swift */,
 				6FB7B3F429CB4F46000F1792 /* UserDefaults+Extensions.swift */,
 			);
@@ -291,6 +290,7 @@
 				6FF11DF029C88895004469B8 /* ProductViewModel.swift */,
 				6FF11DF429C88C73004469B8 /* ProductCellView.swift */,
 				6FF77B6B29C9BBEF00D4B752 /* SignInViewModel.swift */,
+				6F2B73C329CDB45400D1A9E0 /* ProductDetailsViewModel.swift */,
 				6FB7B3EC29CB49F6000F1792 /* LogInViewModel.swift */,
 			);
 			path = ViewModels;
