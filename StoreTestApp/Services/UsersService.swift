@@ -13,6 +13,7 @@ class UsersService: ObservableObject {
     static let shared = UsersService()
     
     @Published var currentUser: UserModel?
+    @Published var currentUserCart: [ProductModel] = []
     
     lazy var persistentContainer: NSPersistentContainer = {
       let container = NSPersistentContainer(name: "UsersDataModel")

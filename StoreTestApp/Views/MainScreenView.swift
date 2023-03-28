@@ -22,6 +22,8 @@ struct MainScreenView: View {
             switch selectedIndex {
             case 0:
                 ProductsView(viewModel: productViewModel, selectedTab: $selectedIndex)
+            case 2:
+                CartView()
             case 3:
             #if targetEnvironment(simulator)
                 CoreDataDebugView()
