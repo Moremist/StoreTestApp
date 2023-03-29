@@ -14,6 +14,9 @@ struct ProductCellView: View {
     var addProductAction: (ProductModel) -> Void
     var favouriteAction: ((ProductModel) -> Void)?
     
+    
+    @State private var addButtonTapped: Bool = false
+    
     var body: some View {
         GeometryReader { reader in
             let cellHeight = reader.size.height
@@ -109,24 +112,43 @@ struct ProductCellView: View {
                                 
                                 
                                 Button {
-                                    addProductAction(product)
+                                    if !addButtonTapped {
+                                        addProductAction(product)
+                                        withAnimation {
+                                            addButtonTapped = true
+                                        }
+                                        let impactMed = UIImpactFeedbackGenerator(style: .medium)
+                                        impactMed.impactOccurred()
+                                    }
                                 } label: {
                                     ZStack {
                                         Circle()
                                             .frame(width: cellWidth / 5, height: cellWidth / 5)
                                             .foregroundColor(Color("backgroundCircleColor"))
-                                        Image(systemName: "plus")
+                                        
+                                        Image(systemName: addButtonTapped ? "checkmark" : "plus")
                                             .resizable()
                                             .foregroundColor(.gray)
                                             .frame(width: cellWidth / 13.4, height: cellHeight / 18.4)
                                     }
                                 }
+                                .disabled(addButtonTapped)
                             }
                             
                         }
                         .padding(.horizontal, 7)
                     }
                     .padding(.bottom, 7)
+                }
+            }
+        }
+        .onChange(of: addButtonTapped) { tapped in
+            if tapped {
+                Task {
+                    try await Task.sleep(nanoseconds: 3_000_000_000)
+                    withAnimation {
+                        addButtonTapped = false
+                    }
                 }
             }
         }

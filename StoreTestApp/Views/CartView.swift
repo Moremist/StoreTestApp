@@ -42,17 +42,37 @@ struct CartView: View {
             
             Spacer()
             
-            HStack {
-                Text("Summary: " + cartSummary.description + "$")
-                    .font(.montserratRegular24)
-            }
+            CartBottomView(summary: cartSummary)
         }
-        .padding(.bottom, 63)
         .background(Color("mainBGColor"))
     }
     
     private func deleteProduct(at offset: IndexSet) {
         userService.currentUserCart.remove(atOffsets: offset)
+    }
+}
+
+struct CartBottomView: View {
+    var summary: Double
+    
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .cornerRadius(40, corners: [.topLeft, .topRight])
+                .edgesIgnoringSafeArea(.bottom)
+                .foregroundColor(Color("detailsBottomColor"))
+            
+            VStack {
+                HStack {
+                    Text("Summary: " + summary.description + "$")
+                        .font(.montserratRegular24)
+                        .foregroundColor(.white)
+                        .padding()
+                }
+                Spacer()
+            }
+        }
+        .frame(height: 123)
     }
 }
 

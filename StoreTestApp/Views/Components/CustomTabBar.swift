@@ -64,7 +64,7 @@ struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.black
-            CustomTabBar(selectedIndex: .constant(1))
+            CustomTabBar(selectedIndex: .constant(2))
         }
     }
 }
