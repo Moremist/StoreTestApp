@@ -117,8 +117,7 @@ struct ProductCellView: View {
                                         withAnimation {
                                             addButtonTapped = true
                                         }
-                                        let impactMed = UIImpactFeedbackGenerator(style: .medium)
-                                        impactMed.impactOccurred()
+                                        Haptics.shared.play(.medium)
                                     }
                                 } label: {
                                     ZStack {

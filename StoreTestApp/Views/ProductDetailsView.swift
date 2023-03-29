@@ -108,18 +108,24 @@ struct ProductDetailsView: View {
                 }
             }
             
-            ProductDetailsBottomView()
-                .offset(y: offset)
-                .onChange(of: product) { _ in
-                    withAnimation(.spring()) {
-                        offset = 0
-                    }
+            ProductDetailsBottomView(addToCartAction: viewModel.addToCart)
+            .offset(y: offset)
+            .onChange(of: product) { _ in
+                withAnimation(.spring()) {
+                    offset = 0
                 }
+            }
         }
     }
 }
 
 struct ProductDetailsBottomView: View {
+    private let userService = UsersService.shared
+    
+    var addToCartAction: () -> Void
+    
+    @State private var addButtonTapped: Bool = false
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -146,25 +152,37 @@ struct ProductDetailsBottomView: View {
                     Spacer()
                     
                     Button {
-                        
+                        addToCartAction()
+                        Haptics.shared.play(.medium)
+                        addButtonTapped = true
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 16)
                                 .frame(width: 170, height: 44)
                                 .foregroundColor(Color.textSecondaryColor)
                             
-                            HStack {
-                                Text(Strings.idk2500)
-                                    .foregroundColor(.white.opacity(0.5))
-                                    .font(.montserratRegular10)
-                                
-                                Text(Strings.addToCart)
-                                    .foregroundColor(.white)
-                                    .font(.montserratBold10)
+                            Group {
+                                if addButtonTapped {
+                                    Image(systemName: "checkmark")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.white)
+                                        .frame(width: 13, height: 13)
+                                } else {
+                                    HStack {
+                                        Text(Strings.idk2500)
+                                            .foregroundColor(.white.opacity(0.5))
+                                            .font(.montserratRegular10)
+                                        
+                                        Text(Strings.addToCart)
+                                            .foregroundColor(.white)
+                                            .font(.montserratBold10)
+                                    }
+                                }
                             }
                         }
                     }
-                    
+                    .disabled(addButtonTapped)
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 17)
@@ -173,6 +191,16 @@ struct ProductDetailsBottomView: View {
             }
         }
         .frame(height: 158)
+        .onChange(of: addButtonTapped) { tapped in
+            if tapped {
+                Task {
+                    try await Task.sleep(nanoseconds: 3_000_000_000)
+                    withAnimation {
+                        addButtonTapped = false
+                    }
+                }
+            }
+        }
     }
 }
 
