@@ -30,4 +30,12 @@ struct ProductModel: Codable {
         case category, name, price, discount
         case imageURL = "image_url"
     }
+    
+    static let dummyModel = ProductModel(
+        category: "Phones",
+        name: "Samsung S10",
+        price: 1000,
+        discount: 10,
+        imageURL: "https://mirbmw.ru/wp-content/uploads/2022/01/manhart-mhx6-700-01.jpg"
+    )
 }

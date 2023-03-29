@@ -10,7 +10,6 @@ import CachedAsyncImage
 
 struct CartCellView: View {
     var product: ProductModel
-    var count: Int
     
     var body: some View {
         HStack {
@@ -35,22 +34,17 @@ struct CartCellView: View {
             
             Spacer()
         }
-        .padding(.horizontal, 20)
-        .padding(.bottom, 30)
+        .padding()
+        .frame(height: 120)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .foregroundColor(Color("backgroundCircleColor"))
+        )
     }
 }
 
 struct CartCellView_Previews: PreviewProvider {
     static var previews: some View {
-        CartCellView(
-            product: ProductModel(
-                category: "Phones",
-                name: "Samsung S10",
-                price: 1000,
-                discount: 10,
-                imageURL: "https://mirbmw.ru/wp-content/uploads/2022/01/manhart-mhx6-700-01.jpg"
-            ),
-            count: 5
-        )
+        CartCellView(product: ProductModel.dummyModel)
     }
 }

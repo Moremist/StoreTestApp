@@ -163,18 +163,10 @@ struct ProductCellView: View {
 struct ProductCellView_Previews: PreviewProvider {
     static var previews: some View {
         ProductCellView(
-            product:
-                ProductModel(
-                    category: "Phones",
-                    name: "Samsung S10",
-                    price: 1000,
-                    discount: 10,
-                    imageURL: "https://mirbmw.ru/wp-content/uploads/2022/01/manhart-mhx6-700-01.jpg"
-                ),
+            product: ProductModel.dummyModel,
             addProductAction: {_ in},
             favouriteAction: {_ in}
         )
-        //        .frame(width: 114, height: 149)
         .frame(width: 174, height: 221)
     }
 }
