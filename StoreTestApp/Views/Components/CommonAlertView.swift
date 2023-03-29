@@ -17,7 +17,7 @@ struct CommonAlertView: View {
         VStack {
             VStack {
                 ZStack {
-                    Color("textSecondaryColor")
+                    Color.textSecondaryColor
                         .opacity(0.7)
                     VStack {
                         Group {

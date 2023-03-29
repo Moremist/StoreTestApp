@@ -125,7 +125,7 @@ struct ProductDetailsBottomView: View {
             Rectangle()
                 .cornerRadius(40, corners: [.topLeft, .topRight])
                 .edgesIgnoringSafeArea(.bottom)
-                .foregroundColor(Color("detailsBottomColor"))
+                .foregroundColor(Color.detailBottomColor)
             VStack {
                 HStack {
                     VStack(alignment: .leading, spacing: 11) {
@@ -151,7 +151,7 @@ struct ProductDetailsBottomView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 16)
                                 .frame(width: 170, height: 44)
-                                .foregroundColor(Color("textSecondaryColor"))
+                                .foregroundColor(Color.textSecondaryColor)
                             
                             HStack {
                                 Text(Strings.idk2500)
@@ -187,7 +187,7 @@ struct ProductDetailsBottomViewButton: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 38, height: 22)
-                    .foregroundColor(Color("textSecondaryColor"))
+                    .foregroundColor(Color.textSecondaryColor)
                 Image(systemName: iconName)
                     .resizable()
                     .scaledToFit()

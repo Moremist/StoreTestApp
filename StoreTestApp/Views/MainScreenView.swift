@@ -16,7 +16,7 @@ struct MainScreenView: View {
     
     var body: some View {
         ZStack {
-            Color("mainBGColor")
+            Color.mainBGColor
                 .edgesIgnoringSafeArea(.all)
             
             switch selectedIndex {
@@ -28,14 +28,14 @@ struct MainScreenView: View {
             #if targetEnvironment(simulator)
                 CoreDataDebugView()
             #else
-                Color("mainBGColor")
+                Color.mainBGColor
                     .edgesIgnoringSafeArea(.all)
             #endif
                 
             case 4:
                 ProfileView()
             default:
-                Color("mainBGColor")
+                Color.mainBGColor
                     .edgesIgnoringSafeArea(.all)
             }
             

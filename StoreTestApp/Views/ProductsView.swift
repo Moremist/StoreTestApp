@@ -68,7 +68,7 @@ struct ProductsView: View {
                 
                 Spacer()
             }
-            .background(Color("mainBGColor"))
+            .background(Color.mainBGColor)
         }
         .onAppear {
             Task {
@@ -103,7 +103,7 @@ struct ProductHeaderView: View {
                     .font(.montserratBold24)
                 Text(Strings.bata)
                     .font(.montserratBold24)
-                    .foregroundColor(Color("textSecondaryColor"))
+                    .foregroundColor(Color.textSecondaryColor)
             }
             
             Spacer()
@@ -184,7 +184,7 @@ struct ProductCategoriesButtonsView: View {
                                 Circle()
                                     .frame(width: 42, height: 38)
                                     .scaledToFit()
-                                    .foregroundColor(Color("backgroundCircleColor"))
+                                    .foregroundColor(Color.grayBGColor)
                                 Image(category.imageName)
                                     .resizable()
                                     .scaledToFit()

@@ -38,7 +38,7 @@ struct CartCellView: View {
         .frame(height: 120)
         .background(
             RoundedRectangle(cornerRadius: 30)
-                .foregroundColor(Color("backgroundCircleColor"))
+                .foregroundColor(Color.grayBGColor)
         )
     }
 }

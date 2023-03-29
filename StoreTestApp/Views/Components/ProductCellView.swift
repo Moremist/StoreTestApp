@@ -69,7 +69,7 @@ struct ProductCellView: View {
                             VStack(alignment: .leading) {
                                 ZStack {
                                     Capsule()
-                                        .foregroundColor(Color("backgroundCircleColor"))
+                                        .foregroundColor(Color.grayBGColor)
                                         .opacity(0.85)
                                     
                                     Text(product.category)
@@ -101,7 +101,7 @@ struct ProductCellView: View {
                                         ZStack {
                                             Circle()
                                                 .frame(width: cellWidth / 6.2, height: cellWidth / 6.2)
-                                                .foregroundColor(Color("backgroundCircleColor"))
+                                                .foregroundColor(Color.grayBGColor)
                                             Image(systemName: "heart")
                                                 .resizable()
                                                 .foregroundColor(.gray)
@@ -124,7 +124,7 @@ struct ProductCellView: View {
                                     ZStack {
                                         Circle()
                                             .frame(width: cellWidth / 5, height: cellWidth / 5)
-                                            .foregroundColor(Color("backgroundCircleColor"))
+                                            .foregroundColor(Color.grayBGColor)
                                         
                                         Image(systemName: addButtonTapped ? "checkmark" : "plus")
                                             .resizable()

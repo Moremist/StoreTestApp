@@ -33,3 +33,10 @@ extension Color {
         )
     }
 }
+
+extension Color {
+    static let mainBGColor = Color("mainBGColor")
+    static let textSecondaryColor = Color("textSecondaryColor")
+    static let grayBGColor = Color("grayBGColor")
+    static let detailBottomColor = Color("detailsBottomColor")
+}

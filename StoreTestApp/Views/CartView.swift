@@ -24,7 +24,7 @@ struct CartView: View {
             HStack {
                 Text("Cart")
                     .font(.montserratBold36)
-                    .foregroundColor(Color("textSecondaryColor"))
+                    .foregroundColor(Color.textSecondaryColor)
                 
                 Spacer()
             }
@@ -33,7 +33,7 @@ struct CartView: View {
             List {
                 ForEach(userService.currentUserCart, id: \.name) { product in
                     CartCellView(product: product)
-                        .listRowBackground(Color("mainBGColor"))
+                        .listRowBackground(Color.mainBGColor)
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
                 }
@@ -50,7 +50,7 @@ struct CartView: View {
             
             CartBottomView(summary: cartSummary)
         }
-        .background(Color("mainBGColor"))
+        .background(Color.mainBGColor)
     }
     
     private func deleteProduct(at offset: IndexSet) {
@@ -63,16 +63,16 @@ struct CartEmptyView: View {
     
     var body: some View {
         ZStack {
-            Color("mainBGColor")
+            Color.mainBGColor
             VStack(spacing: 20) {
                 Image(systemName: "basket")
                     .resizable()
                     .frame(width: 100, height: 100)
-                    .foregroundColor(Color("textSecondaryColor"))
+                    .foregroundColor(Color.textSecondaryColor)
                 
                 Text("Nothing to present :(")
                     .font(.montserratBold20)
-                    .foregroundColor(Color("textSecondaryColor"))
+                    .foregroundColor(Color.textSecondaryColor)
                 
                 Button {
                     selectedIndex = 0
@@ -84,7 +84,7 @@ struct CartEmptyView: View {
                         .padding(.vertical, 5)
                         .background(
                             Capsule()
-                                .foregroundColor(Color("textSecondaryColor"))
+                                .foregroundColor(Color.textSecondaryColor)
                         )
                 }
                 .frame(height: 35)
@@ -101,7 +101,7 @@ struct CartBottomView: View {
             Rectangle()
                 .cornerRadius(40, corners: [.topLeft, .topRight])
                 .edgesIgnoringSafeArea(.bottom)
-                .foregroundColor(Color("detailsBottomColor"))
+                .foregroundColor(Color.detailBottomColor)
             
             VStack {
                 HStack {

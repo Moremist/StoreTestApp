@@ -40,7 +40,7 @@ struct CustomTabBar: View {
                                 ZStack {
                                     if selectedIndex == index {
                                         Circle()
-                                            .foregroundColor(Color("backgroundCircleColor"))
+                                            .foregroundColor(Color.grayBGColor)
                                             .frame(width: 40, height: 40)
                                     }
                                     
