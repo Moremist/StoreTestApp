@@ -8,16 +8,8 @@
 import SwiftUI
 
 struct CartView: View {
-    @ObservedObject var userService = UsersService.shared
+    @StateObject var viewModel: CartViewModel = CartViewModel()
     @Binding var selectedIndex: Int
-    
-    private var cart: [ProductModel] {
-        userService.currentUserCart
-    }
-    
-    private var cartSummary: Double {
-        cart.reduce(0.0) { $0 + $1.price }
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -31,31 +23,27 @@ struct CartView: View {
             .padding(.horizontal, 55)
             
             List {
-                ForEach(userService.currentUserCart, id: \.name) { product in
+                ForEach(viewModel.cart, id: \.name) { product in
                     CartCellView(product: product)
                         .listRowBackground(Color.mainBGColor)
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
                 }
-                .onDelete(perform: deleteProduct(at:))
+                .onDelete(perform: viewModel.deleteProduct(at:))
             }
             .scrollContentBackground(.hidden)
             .overlay(
                 Group {
-                    if(userService.currentUserCart.isEmpty) {
+                    if(viewModel.cart.isEmpty) {
                         CartEmptyView(selectedIndex: $selectedIndex)
                     }
                 }
             )
             
-            CartBottomView(summary: cartSummary)
+            CartBottomView(summary: viewModel.cartSummary)
         }
         .background(Color.mainBGColor)
-    }
-    
-    private func deleteProduct(at offset: IndexSet) {
-        userService.currentUserCart.remove(atOffsets: offset)
-    }
+    }    
 }
 
 struct CartEmptyView: View {
@@ -94,6 +82,8 @@ struct CartEmptyView: View {
 }
 
 struct CartBottomView: View {
+    @State private var offset: CGFloat = 123
+
     var summary: Double
     
     var body: some View {
@@ -114,12 +104,26 @@ struct CartBottomView: View {
             }
         }
         .frame(height: 123)
-        .offset(y: summary == 0 ? 123 : 0)
+        .offset(y: offset)
+        .onAppear {
+            if summary > 0.0 {
+                withAnimation {
+                    self.offset = 0
+                }
+            }
+        }
+        .onChange(of: summary) { newValue in
+            if newValue == 0.0 {
+                withAnimation {
+                    self.offset = 123
+                }
+            }
+        }
     }
 }
 
 struct CartView_Previews: PreviewProvider {
     static var previews: some View {
-        CartView(selectedIndex: .constant(2))
+        CartView(viewModel: CartViewModel(), selectedIndex: .constant(2))
     }
 }
