@@ -12,38 +12,41 @@ struct CartView: View {
     @Binding var selectedIndex: Int
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text("Cart")
-                    .font(.montserratBold36)
-                    .foregroundColor(Color.textSecondaryColor)
+        NavigationStack {
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Cart")
+                        .font(.montserratBold36)
+                        .foregroundColor(Color.textSecondaryColor)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 55)
                 
-                Spacer()
-            }
-            .padding(.horizontal, 55)
-            
-            List {
-                ForEach(viewModel.cart, id: \.name) { product in
-                    CartCellView(product: product)
-                        .listRowBackground(Color.mainBGColor)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
-                }
-                .onDelete(perform: viewModel.deleteProduct(at:))
-            }
-            .scrollContentBackground(.hidden)
-            .overlay(
-                Group {
-                    if(viewModel.cart.isEmpty) {
-                        CartEmptyView(selectedIndex: $selectedIndex)
+                List {
+                    ForEach(viewModel.cart, id: \.name) { product in
+                        CartCellView(product: product)
+                            .listRowBackground(Color.mainBGColor)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
                     }
+                    .onDelete(perform: viewModel.deleteProduct(at:))
                 }
-            )
-            
-            CartBottomView(summary: viewModel.cartSummary)
+                .scrollContentBackground(.hidden)
+                .overlay(
+                    Group {
+                        if(viewModel.cart.isEmpty) {
+                            CartEmptyView(selectedIndex: $selectedIndex)
+                        }
+                    }
+                )
+                
+                CartBottomView(summary: viewModel.cartSummary)
+            }
+            .background(Color.mainBGColor)
         }
-        .background(Color.mainBGColor)
-    }    
+    }
+    
 }
 
 struct CartEmptyView: View {
@@ -83,7 +86,7 @@ struct CartEmptyView: View {
 
 struct CartBottomView: View {
     @State private var offset: CGFloat = 123
-
+    
     var summary: Double
     
     var body: some View {
@@ -94,12 +97,25 @@ struct CartBottomView: View {
                 .foregroundColor(Color.detailBottomColor)
             
             VStack {
-                HStack {
-                    Text("Summary: " + summary.description + "$")
-                        .font(.montserratRegular24)
-                        .foregroundColor(.white)
-                        .padding()
-                }
+                NavigationLink(
+                    destination:
+                        Text("Check out view in progress :)")
+                        .font(.montserratBold20),
+                    label: {
+                        Text("Check out " + summary.description + "$")
+                            .font(.montserratBold24)
+                            .foregroundColor(.white)
+                        
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 5)
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .foregroundColor(Color.textSecondaryColor)
+                            )
+                    }
+                )
+                .padding()
+                
                 Spacer()
             }
         }
